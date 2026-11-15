@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Note Trainer</string>
+    <string name="home_description">Your music practice starts here.</string>
+    <string name="theme_heading">Theme</string>
+    <string name="theme_white">White</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System default</string>
+</resources>

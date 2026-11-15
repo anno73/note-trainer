@@ -1,0 +1,48 @@
+name: Debug APK
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: debug-apk-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Check translations
+        run: python3 .github/scripts/check_locales.py
+
+      - name: Run unit tests and assemble debug APK
+        run: ./gradlew testDebugUnitTest assembleDebug
+
+      - name: Determine built revision
+        id: revision
+        run: echo "short_sha=$(git rev-parse --short=12 HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk-${{ steps.revision.outputs.short_sha }}
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error

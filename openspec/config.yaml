@@ -1,0 +1,74 @@
+schema: spec-driven
+context: |
+  Target: Android phone and tablet
+  Product: Android-only app for musicians to practice reading and playing sheet music
+  Device Compatibility: Must run on Huawei P30; verify behavior on a physical device
+  Tech-Stack: Kotlin, Jetpack Compose, Android SDK (Compile SDK 36)
+  Min-SDK: Android 8.0 (API 26)
+  Target-SDK: Android 16 (API 36)
+  Build-System: Gradle (Kotlin DSL), Build is only done via GitHub Actions, no local builds allowed
+  Architecture: MVVM, Clean Architecture, Coroutines/Flow
+  Testing: JUnit, MockK, Compose Testing Library
+  CI/CD: GitHub Actions
+  Deployment: Google Play Store, Internal Testing, GitHub Releases
+  Version-Control: GitHub
+  Audio: Oboe
+  Pitch Detection: Aubio
+  Native Integration: Integrate Oboe and Aubio with Kotlin through Android NDK/JNI
+  Notation Format: MusicXML
+  Notation Renderer: Undecided; prototype native Compose rendering versus locally bundled OpenSheetMusicDisplay in an Android WebView before choosing
+  Notation Evaluation: Verify readable staff notation, per-note highlighting, resizing, and portrait/landscape behavior on phones, tablets, and Huawei P30
+  Initial Exercise: Display one note on a staff, capture microphone audio, identify one sustained played pitch at a time, and provide immediate feedback
+  Initial Scope: Monophonic note exercises; chords and polyphonic pitch recognition are out of scope
+  Pitch Feedback: Compare detected pitch with the exercise note; account for octave, tuning reference, instrument timbre, and vibrato
+  Detection Reliability: Distinguish silence, noise, and unreliable detections from confidently detected notes; do not classify every audio frame as a note
+  Microphone Access: Request microphone permission before capture; show actionable feedback if permission is denied or audio capture fails
+  Device Validation: Test microphone capture, pitch recognition, and measured audio-to-feedback latency on Huawei P30
+  Storage: Room Database
+  UI Supported Language: German, English
+  UI interaction: Touch-based
+  UI Layout: Responsive for different screen sizes
+  UI Orientation: Portrait and Landscape
+  UI Theme: White Theme, Dark Theme, System Default
+  UI Font Size: Adjustable
+
+github:
+  repository: anno73/note-trainer
+  branch: main
+  api: use gh binary
+  privacy: do not expose personal information, keep repository public, never commit secrets
+
+githubCopilot:
+  cloudAgent: true
+
+
+# Project context (optional)
+# Add only constraints that should guide OpenSpec artifacts and workflows.
+# Include constraints an agent cannot infer by reading the code.
+# Keep general project documentation and discoverable codebase facts out.
+# Example:
+#   context: |
+#     Designs and tasks must cover Windows, macOS, and Linux
+#     Write all artifacts in Spanish
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always state what is out of scope
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Notentrainer</string>
+    <string name="home_description">Hier beginnt deine Musikübung.</string>
+    <string name="theme_heading">Design</string>
+    <string name="theme_white">Hell</string>
+    <string name="theme_dark">Dunkel</string>
+    <string name="theme_system">Systemstandard</string>
+</resources>
